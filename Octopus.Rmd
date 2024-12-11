@@ -1,0 +1,13 @@
+---
+title: "R Notebook"
+output: github_document
+---
+
+```{r}
+library(dada2)
+packageVersion("dada2")
+```
+```{r}
+
+```
+
