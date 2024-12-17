@@ -494,44 +494,40 @@ ord.nmds.bray <- ordinate(ps.prop, method="NMDS", distance="bray")
 ```
 
     ## Run 0 stress 0.06274095 
-    ## Run 1 stress 0.06299481 
-    ## ... Procrustes: rmse 0.01292517  max resid 0.03096755 
-    ## Run 2 stress 0.05720156 
+    ## Run 1 stress 0.05697246 
     ## ... New best solution
-    ## ... Procrustes: rmse 0.04254315  max resid 0.1341629 
-    ## Run 3 stress 0.05651033 
+    ## ... Procrustes: rmse 0.04243412  max resid 0.1350023 
+    ## Run 2 stress 0.05651033 
     ## ... New best solution
-    ## ... Procrustes: rmse 0.02518833  max resid 0.06174122 
-    ## Run 4 stress 0.05651036 
-    ## ... Procrustes: rmse 0.0001178599  max resid 0.0003040472 
-    ## ... Similar to previous best
-    ## Run 5 stress 0.06286974 
-    ## Run 6 stress 0.05664783 
-    ## ... Procrustes: rmse 0.02212074  max resid 0.06372078 
-    ## Run 7 stress 0.0625627 
-    ## Run 8 stress 0.06277372 
-    ## Run 9 stress 0.05683546 
-    ## ... Procrustes: rmse 0.008578884  max resid 0.03034284 
-    ## Run 10 stress 0.05664775 
-    ## ... Procrustes: rmse 0.02207594  max resid 0.0634862 
-    ## Run 11 stress 0.06285638 
-    ## Run 12 stress 0.05710608 
-    ## Run 13 stress 0.05710604 
-    ## Run 14 stress 0.06261823 
-    ## Run 15 stress 0.05651036 
-    ## ... Procrustes: rmse 0.0001277914  max resid 0.0003514569 
-    ## ... Similar to previous best
-    ## Run 16 stress 0.05639224 
+    ## ... Procrustes: rmse 0.02458004  max resid 0.06346463 
+    ## Run 3 stress 0.06290097 
+    ## Run 4 stress 0.06261806 
+    ## Run 5 stress 0.05639226 
     ## ... New best solution
-    ## ... Procrustes: rmse 0.01826913  max resid 0.06437622 
-    ## Run 17 stress 0.06285949 
-    ## Run 18 stress 0.3592736 
-    ## Run 19 stress 0.05671199 
-    ## ... Procrustes: rmse 0.01221613  max resid 0.03124759 
-    ## Run 20 stress 0.06290821 
+    ## ... Procrustes: rmse 0.01829225  max resid 0.06459957 
+    ## Run 6 stress 0.06299471 
+    ## Run 7 stress 0.06275491 
+    ## Run 8 stress 0.05664774 
+    ## ... Procrustes: rmse 0.01109458  max resid 0.03181307 
+    ## Run 9 stress 0.05720155 
+    ## Run 10 stress 0.06291898 
+    ## Run 11 stress 0.05646427 
+    ## ... Procrustes: rmse 0.005479301  max resid 0.01723558 
+    ## Run 12 stress 0.05767436 
+    ## Run 13 stress 0.06379996 
+    ## Run 14 stress 0.0629947 
+    ## Run 15 stress 0.06285948 
+    ## Run 16 stress 0.05746731 
+    ## Run 17 stress 0.05695456 
+    ## Run 18 stress 0.05664776 
+    ## ... Procrustes: rmse 0.01109697  max resid 0.03181676 
+    ## Run 19 stress 0.05664772 
+    ## ... Procrustes: rmse 0.01108224  max resid 0.03182205 
+    ## Run 20 stress 0.05699858 
     ## *** Best solution was not repeated -- monoMDS stopping criteria:
-    ##      2: no. of iterations >= maxit
+    ##      1: no. of iterations >= maxit
     ##     18: stress ratio > sratmax
+    ##      1: scale factor of the gradient < sfgrmin
 
 ``` r
 sum(is.na(otu_table(ps.prop)))
@@ -577,7 +573,7 @@ str(ps.prop)
     ##   .. .. .. .. ..@ xp_list                    :List of 1
     ##   .. .. .. .. .. ..$ :<externalptr> 
     ##   .. .. .. .. ..@ .link_to_cached_object_list:List of 1
-    ##   .. .. .. .. .. ..$ :<environment: 0x565052778c38> 
+    ##   .. .. .. .. .. ..$ :<environment: 0x5594513e7390> 
     ##   .. .. ..@ ranges         :Formal class 'GroupedIRanges' [package "XVector"] with 7 slots
     ##   .. .. .. .. ..@ group          : int [1:2675] 1 1 1 1 1 1 1 1 1 1 ...
     ##   .. .. .. .. ..@ start          : int [1:2675] 1 441 881 1321 1761 2201 2641 3081 3521 3961 ...
@@ -600,41 +596,41 @@ ord.nmds.bray <- ordinate(ps.prop, method = "NMDS", distance = "bray")
 ```
 
     ## Run 0 stress 0.06274095 
-    ## Run 1 stress 0.05683546 
+    ## Run 1 stress 0.06279899 
+    ## ... Procrustes: rmse 0.01247477  max resid 0.03268066 
+    ## Run 2 stress 0.05664775 
     ## ... New best solution
-    ## ... Procrustes: rmse 0.04400775  max resid 0.1405109 
-    ## Run 2 stress 0.05736111 
-    ## Run 3 stress 0.0574674 
-    ## Run 4 stress 0.05646421 
+    ## ... Procrustes: rmse 0.04428436  max resid 0.1362264 
+    ## Run 3 stress 0.06290849 
+    ## Run 4 stress 0.05639219 
     ## ... New best solution
-    ## ... Procrustes: rmse 0.0210439  max resid 0.06299978 
-    ## Run 5 stress 0.05646437 
-    ## ... Procrustes: rmse 0.000168832  max resid 0.0004995452 
+    ## ... Procrustes: rmse 0.01105424  max resid 0.03161863 
+    ## Run 5 stress 0.06290248 
+    ## Run 6 stress 0.05646423 
+    ## ... Procrustes: rmse 0.005455272  max resid 0.01726411 
+    ## Run 7 stress 0.0566478 
+    ## ... Procrustes: rmse 0.01104875  max resid 0.03161612 
+    ## Run 8 stress 0.0570373 
+    ## Run 9 stress 0.05686702 
+    ## ... Procrustes: rmse 0.01215363  max resid 0.04915482 
+    ## Run 10 stress 0.05683547 
+    ## ... Procrustes: rmse 0.01969661  max resid 0.06431392 
+    ## Run 11 stress 0.05652209 
+    ## ... Procrustes: rmse 0.01054061  max resid 0.03102557 
+    ## Run 12 stress 0.0625627 
+    ## Run 13 stress 0.05703731 
+    ## Run 14 stress 0.05720155 
+    ## Run 15 stress 0.06274362 
+    ## Run 16 stress 0.0631431 
+    ## Run 17 stress 0.05720157 
+    ## Run 18 stress 0.05703732 
+    ## Run 19 stress 0.05683546 
+    ## ... Procrustes: rmse 0.01968339  max resid 0.06427322 
+    ## Run 20 stress 0.05639218 
+    ## ... New best solution
+    ## ... Procrustes: rmse 2.299219e-05  max resid 6.362423e-05 
     ## ... Similar to previous best
-    ## Run 6 stress 0.06275498 
-    ## Run 7 stress 0.05699857 
-    ## Run 8 stress 0.05664774 
-    ## ... Procrustes: rmse 0.009842395  max resid 0.0316411 
-    ## Run 9 stress 0.05651039 
-    ## ... Procrustes: rmse 0.01982385  max resid 0.0635913 
-    ## Run 10 stress 0.05727437 
-    ## Run 11 stress 0.05646431 
-    ## ... Procrustes: rmse 0.0001605404  max resid 0.0004740008 
-    ## ... Similar to previous best
-    ## Run 12 stress 0.05651033 
-    ## ... Procrustes: rmse 0.01978219  max resid 0.06355106 
-    ## Run 13 stress 0.05699858 
-    ## Run 14 stress 0.05683547 
-    ## ... Procrustes: rmse 0.0210936  max resid 0.06326979 
-    ## Run 15 stress 0.05686701 
-    ## ... Procrustes: rmse 0.01341942  max resid 0.04999752 
-    ## Run 16 stress 0.06261809 
-    ## Run 17 stress 0.05727464 
-    ## Run 18 stress 0.05649444 
-    ## ... Procrustes: rmse 0.01127389  max resid 0.03139077 
-    ## Run 19 stress 0.354735 
-    ## Run 20 stress 0.05736112 
-    ## *** Best solution repeated 2 times
+    ## *** Best solution repeated 1 times
 
 ``` r
 plot_ordination(ps.prop, ord.nmds.bray, title="Bray NMDS")
@@ -1142,3 +1138,276 @@ plot_bar(ps.top20, fill = "Phylum") +
     ## generated.
 
 ![](Octopus_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
+
+``` r
+richness_div <- estimate_richness(ps, measures = c("Observed", "Shannon", "Simpson", "Chao1"))
+
+# Ajouter les groupes (Aqua et Wild) à la table de diversité
+richness_div$Source <- sample_data(ps)$Source
+
+# Vérifier à nouveau les résultats
+head(richness_div)
+```
+
+    ##             Observed    Chao1   se.chao1  Shannon   Simpson Source
+    ## SRR27048725      268 268.4286 0.91292516 5.305546 0.9938871   Aqua
+    ## SRR27048726      373 375.4000 2.37651769 5.432143 0.9937040   Aqua
+    ## SRR27048727      310 311.0769 1.33617800 4.710865 0.9831320   Aqua
+    ## SRR27048728      130 130.6000 1.18585383 3.856198 0.9697002   Aqua
+    ## SRR27048729      289 291.3333 2.42348350 4.823909 0.9859524   Aqua
+    ## SRR27048730      339 339.0000 0.04160517 5.516413 0.9948828   Aqua
+
+``` r
+# Test de significativité pour Chao1
+chao_test <- wilcox.test(Chao1 ~ Source, data = richness_div)
+
+# Déterminer si l'ajout de "NS" ou "*" est nécessaire pour Chao1
+chao_label <- ifelse(chao_test$p.value < 0.05, "*", "NS")
+
+# Graphique pour l'indice Chao1
+ggplot(richness_div, aes(x = Source, y = Chao1, fill = Source)) +
+  geom_violin(trim = FALSE) +  # Crée un graphique en violon
+  geom_boxplot(width = 0.1, outlier.shape = NA) +  # Ajoute une boîte à moustaches
+  labs(title = "Indice Chao1", 
+       x = "Groupe", 
+       y = "Indice Chao1") +
+  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotation des labels de l'axe x
+  scale_x_discrete(limits = c("Wild", "Aqua")) +  # Inverser l'ordre de l'axe x
+  # Ajouter "NS" ou "*" en fonction du résultat du test
+  geom_text(x = 1.5, y = max(richness_div$Chao1) + 0.1, label = chao_label, size = 5)
+```
+
+![](Octopus_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->
+
+``` r
+# Test de Wilcoxon pour la richesse observée (Observed)
+observed_test <- wilcox.test(Observed ~ Source, data = richness_div)
+```
+
+    ## Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+    ## compute exact p-value with ties
+
+``` r
+# Déterminer si l'ajout de "NS" ou "*" est nécessaire pour la richesse observée
+observed_label <- ifelse(observed_test$p.value < 0.05, "*", "NS")
+
+# Graphique en violon pour la richesse observée
+ggplot(richness_div, aes(x = Source, y = Observed, fill = Source)) +
+  geom_violin(trim = FALSE) +  # Crée un graphique en violon
+  geom_boxplot(width = 0.1, outlier.shape = NA) +  # Ajoute une boîte à moustaches
+  labs(title = "Richesse Observée", 
+       x = "Groupe", 
+       y = "Richesse Observée") +
+  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotation des labels de l'axe x
+  scale_x_discrete(limits = c("Wild", "Aqua")) +  # Inverser l'ordre de l'axe x
+  # Ajouter "NS" ou "*" en fonction du résultat du test
+  geom_text(x = 1.5, y = max(richness_div$Observed) + 0.1, label = observed_label, size = 5)
+```
+
+![](Octopus_files/figure-gfm/unnamed-chunk-39-1.png)<!-- -->
+
+``` r
+# Test de significativité pour Shannon
+shannon_test <- wilcox.test(Shannon ~ Source, data = richness_div)
+
+# Déterminer si l'ajout de "NS" ou "*" est nécessaire pour Shannon
+shannon_label <- ifelse(shannon_test$p.value < 0.05, "*", "NS")
+
+# Graphique en violon pour la richesse observée (Shannon)
+ggplot(richness_div, aes(x = Source, y = Shannon, fill = Source)) +
+  geom_violin(trim = FALSE) +  # Crée un graphique en violon
+  geom_boxplot(width = 0.1, outlier.shape = NA) +  # Ajoute une boîte à moustaches
+  labs(title = "Diversity Alpha (Indice de Shannon)", 
+       x = "Groupe", 
+       y = "Indice de Shannon") +
+  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotation des labels de l'axe x
+  scale_x_discrete(limits = c("Wild", "Aqua")) +  # Inverser l'ordre de l'axe x
+  # Ajouter "NS" ou "*" en fonction du résultat du test
+  geom_text(x = 1.5, y = max(richness_div$Shannon) + 0.1, label = shannon_label, size = 5)
+```
+
+![](Octopus_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
+
+``` r
+# Test de significativité pour Shannon
+shannon_test <- wilcox.test(Shannon ~ Source, data = richness_div)
+
+# Déterminer si l'ajout de "NS" ou "*" est nécessaire pour Shannon
+shannon_label <- ifelse(shannon_test$p.value < 0.05, "*", "NS")
+
+# Graphique en violon pour la richesse observée (Shannon)
+ggplot(richness_div, aes(x = Source, y = Shannon, fill = Source)) +
+  geom_violin(trim = FALSE) +  # Crée un graphique en violon
+  geom_boxplot(width = 0.1, outlier.shape = NA) +  # Ajoute une boîte à moustaches
+  labs(title = "Diversity Alpha (Indice de Shannon)", 
+       x = "Groupe", 
+       y = "Indice de Shannon") +
+  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotation des labels de l'axe x
+  scale_x_discrete(limits = c("Wild", "Aqua")) +  # Inverser l'ordre de l'axe x
+  # Ajouter "NS" ou "*" en fonction du résultat du test
+  geom_text(x = 1.5, y = max(richness_div$Shannon) + 0.1, label = shannon_label, size = 5)
+```
+
+![](Octopus_files/figure-gfm/unnamed-chunk-41-1.png)<!-- -->
+
+``` r
+library(ggplot2)
+
+# Test de Wilcoxon pour Simpson
+simpson_test <- wilcox.test(Simpson ~ Source, data = richness_div)
+
+# Déterminer si l'ajout de "NS" ou "*" est nécessaire pour Simpson
+simpson_label <- ifelse(simpson_test$p.value < 0.05, "*", "NS")
+
+# Calculer la position y pour le texte
+y_position <- max(richness_div$Simpson, na.rm = TRUE) + 0.1  # Ajuste la position y au-dessus des valeurs
+
+# Graphique en violon pour l'indice Simpson
+ggplot(richness_div, aes(x = Source, y = Simpson, fill = Source)) +
+  geom_violin(trim = FALSE) +  # Crée un graphique en violon
+  geom_boxplot(width = 0.1, outlier.shape = NA) +  # Ajoute une boîte à moustaches
+  labs(title = "Indice Simpson", 
+       x = "Groupe", 
+       y = "Indice Simpson") +
+  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotation des labels de l'axe x
+  scale_x_discrete(limits = c("Wild", "Aqua")) +  # Inverser l'ordre de l'axe x
+  # Ajouter "NS" ou "*" en fonction du résultat du test
+  geom_text(aes(x = 1.5, y = y_position, label = simpson_label), size = 5)
+```
+
+![](Octopus_files/figure-gfm/unnamed-chunk-42-1.png)<!-- -->
+
+``` r
+simpson_test <- wilcox.test(Simpson ~ Source, data = richness_div)
+
+# Déterminer si l'ajout de "NS" ou "*" est nécessaire pour Simpson
+simpson_label <- ifelse(simpson_test$p.value < 0.05, "*", "NS")
+
+# Calculer la position y pour le texte
+y_position <- max(richness_div$Simpson, na.rm = TRUE) + 0.1  # Ajuste la position y au-dessus des valeurs
+
+# Graphique en violon pour l'indice Simpson
+ggplot(richness_div, aes(x = Source, y = Simpson, fill = Source)) +
+  geom_violin(trim = FALSE) +  # Crée un graphique en violon
+  geom_boxplot(width = 0.1, outlier.shape = NA) +  # Ajoute une boîte à moustaches
+  labs(title = "Indice Simpson", 
+       x = "Groupe", 
+       y = "Indice Simpson") +
+  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotation des labels de l'axe x
+  scale_x_discrete(limits = c("Wild", "Aqua")) +  # Inverser l'ordre de l'axe x
+  # Ajouter "NS" ou "*" en fonction du résultat du test
+  geom_text(aes(x = 1.5, y = y_position, label = simpson_label), size = 5)
+```
+
+![](Octopus_files/figure-gfm/unnamed-chunk-43-1.png)<!-- -->
+
+``` r
+# Installer le package circlize
+install.packages("circlize")
+```
+
+    ## Installing package into '/usr/local/lib/R/site-library'
+    ## (as 'lib' is unspecified)
+
+``` r
+# Charger le package circlize
+library(circlize)
+```
+
+    ## ========================================
+    ## circlize version 0.4.16
+    ## CRAN page: https://cran.r-project.org/package=circlize
+    ## Github page: https://github.com/jokergoo/circlize
+    ## Documentation: https://jokergoo.github.io/circlize_book/book/
+    ## 
+    ## If you use it in published research, please cite:
+    ## Gu, Z. circlize implements and enhances circular visualization
+    ##   in R. Bioinformatics 2014.
+    ## 
+    ## This message can be suppressed by:
+    ##   suppressPackageStartupMessages(library(circlize))
+    ## ========================================
+
+``` r
+metabolic_pathways <- data.frame(
+  Pathway = c("Glycolysis", "TCA Cycle", "Fatty Acid Metabolism", "Amino Acid Metabolism"),
+  Aqua = c(5, 10, 3, 2),
+  Wild = c(8, 7, 4, 5)
+)
+
+# Transformation du data frame pour le ggplot
+library(tidyr)
+```
+
+    ## 
+    ## Attaching package: 'tidyr'
+
+    ## The following object is masked from 'package:S4Vectors':
+    ## 
+    ##     expand
+
+``` r
+metabolic_pathways_long <- gather(metabolic_pathways, key = "Group", value = "Abundance", -Pathway)
+
+# Visualisation des voies métaboliques avec ggplot2
+library(ggplot2)
+ggplot(metabolic_pathways_long, aes(x = Pathway, y = Abundance, fill = Group)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Abondance des Voies Métaboliques", x = "Voie Métabolique", y = "Abondance") +
+  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
+  theme_minimal() +  # Thème minimal
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotation des labels
+```
+
+![](Octopus_files/figure-gfm/unnamed-chunk-45-1.png)<!-- -->
+
+``` r
+bray_curtis_dist <- phyloseq::distance(ps, method = "bray")
+ord_pcoa <- ordinate(ps, method = "PCoA", distance = bray_curtis_dist)
+pcoa_data <- data.frame(ord_pcoa$vectors)
+# Extraire la variance expliquée par chaque axe
+eig_values <- ord_pcoa$values$Relative_eig
+pc1_variance <- round(100 * eig_values[1], 1)
+pc2_variance <- round(100 * eig_values[2], 1)
+colnames(pcoa_data)[1:2] <- c("MDS1", "MDS2")
+pcoa_data$Source <- as.factor(sample_data(ps)$Source)
+library(ggplot2)
+
+ggplot(pcoa_data, aes(x = MDS1, y = MDS2, color = Source)) + 
+  geom_point(size = 4) +  # Points pour chaque échantillon
+  labs(
+    title = paste("PCoA de la Diversité Bêta - PC1: ", pc1_variance, "%, PC2: ", pc2_variance, "%"),
+    x = paste("PCoA1 (", pc1_variance, "%)", sep = ""),
+    y = paste("PCoA2 (", pc2_variance, "%)", sep = "")
+  ) + 
+  scale_color_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
+  theme_minimal()  # Thème minimal pour une meilleure lisibilité
+```
+
+![](Octopus_files/figure-gfm/unnamed-chunk-46-1.png)<!-- -->
+
+``` r
+plot_heatmap(ps, 
+             method = "PCoA",            # Méthode d'ordination si nécessaire
+             distance = "bray",          # Distance Bray-Curtis
+             taxa.label = "Genus",       # Étiquettes des taxons
+             sample.label = "Source",    # Étiquettes des échantillons
+             low = "white", high = "red" # Couleurs personnalisées
+)
+```
+
+    ## Warning: Transformation introduced infinite values in discrete y-axis
+
+![](Octopus_files/figure-gfm/unnamed-chunk-47-1.png)<!-- -->
