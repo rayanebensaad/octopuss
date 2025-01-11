@@ -109,20 +109,19 @@ library(ggplot2); packageVersion("ggplot2")
 ```{r}
 theme_set(theme_bw())
 ```
+
 ```{r}
 donnesoctu <- read.csv("donnéesoctu.csv", sep = ",")
 print(donnesoctu)
 ```
 ```{r}
-# Chargement des données
+
 donnesoctu <- read.csv("donnéesoctu.csv", sep = ",")
 
-# Extraction des identifiants et de la culture
 samples.out <- donnesoctu$Run
 identifier <- substr(samples.out, 1, nchar(samples.out) - 1) 
 culture <- substr(samples.out, nchar(samples.out), nchar(samples.out))
 
-# Création du data frame des métadonnées
 samdf <- data.frame(Identifier = identifier, Culture = culture, row.names = samples.out)
 
 samdf <- data.frame(
@@ -131,17 +130,14 @@ samdf <- data.frame(
 )
 rownames(samdf) <- samdf$SampleName
 
-# Vérification des dimensions
 if (!all(rownames(samdf) %in% rownames(seqtab.nochim))) {
   stop("Les noms d'échantillons dans samdf ne correspondent pas à ceux de seqtab.nochim")
 }
 
-# Création de l'objet phyloseq
 ps <- phyloseq(otu_table(seqtab.nochim, taxa_are_rows=FALSE), 
                sample_data(samdf), 
                tax_table(taxa))
 
-# Vérification de l'objet phyloseq
 print(ps)
 ```
 ```{r}
@@ -184,10 +180,8 @@ theme_bw()
 
 ```
 ```{r}
-# Charger la bibliothèque nécessaire
 library(ggplot2)
 
-# Exemple de données
 data <- data.frame(
   Sample = rep(c("Aqua", "Wild"), each = 10),
   Phylum = rep(c("Proteobacteria", "Bacteroidota", "Firmicutes", "Actinobacteriota",
@@ -196,39 +190,37 @@ data <- data.frame(
   Abundance = c(runif(10, 0.01, 0.25), runif(10, 0.01, 0.25))
 )
 
-# Créer le graphique avec un fond blanc
 ggplot(data, aes(x = Sample, y = Abundance, fill = Phylum)) +
-  geom_bar(stat = "identity", position = "stack") +  # Barres empilées
+  geom_bar(stat = "identity", position = "stack") +  
   labs(
     title = "Répartition des phylums microbiens",
     x = "Échantillons",
     y = "Abondance relative"
   ) +
-  theme_bw()  # Thème avec fond blanc
+  theme_bw()
 
 ```
 ```{r}
 library(ggplot2)
-library(viridis)  # Charger une palette de couleurs harmonieuse
+library(viridis)  
 
-# Visualisation améliorée
 plot_bar(ps.top20, fill = "Phylum") +
   facet_wrap(~Source, scales = "free_x") +  # Facettes par Source
-  geom_bar(stat = "identity", color = "white", size = 0.2) +  # Contours blancs autour des segments
-  scale_fill_viridis_d(option = "plasma", name = "Phylum") +  # Palette de couleurs harmonieuse
+  geom_bar(stat = "identity", color = "white", size = 0.2) +  
+  scale_fill_viridis_d(option = "plasma", name = "Phylum") +  
   labs(
     title = "Abondance relative des Phylums microbiens",
     x = "Échantillons",
     y = "Abondance relative"
   ) +
-  theme_minimal() +  # Thème propre
+  theme_minimal() +  
   theme(
     text = element_text(size = 12),  # Taille générale des textes
     axis.text.x = element_text(angle = 45, hjust = 1, size = 10),  # Rotation des étiquettes X
-    legend.key.size = unit(0.5, "cm"),  # Taille des carrés de la légende
-    legend.position = "right",  # Position de la légende
-    panel.grid.major = element_blank(),  # Suppression des grandes grilles
-    panel.grid.minor = element_blank()   # Suppression des petites grilles
+    legend.key.size = unit(0.5, "cm"),  
+    legend.position = "right",  
+    panel.grid.major = element_blank(),  
+    panel.grid.minor = element_blank()   
   )
 
 ```
@@ -237,10 +229,8 @@ plot_bar(ps.top20, fill = "Phylum") +
 ```{r}
 richness_div <- estimate_richness(ps, measures = c("Observed", "Shannon", "Simpson", "Chao1"))
 
-# Ajouter les groupes (Aqua et Wild) à la table de diversité
 richness_div$Source <- sample_data(ps)$Source
 
-# Vérifier à nouveau les résultats
 head(richness_div)
 ```
 
@@ -248,41 +238,36 @@ head(richness_div)
 # Test de significativité pour Chao1
 chao_test <- wilcox.test(Chao1 ~ Source, data = richness_div)
 
-# Déterminer si l'ajout de "NS" ou "*" est nécessaire pour Chao1
 chao_label <- ifelse(chao_test$p.value < 0.05, "*", "NS")
 
 # Graphique pour l'indice Chao1
 ggplot(richness_div, aes(x = Source, y = Chao1, fill = Source)) +
-  geom_violin(trim = FALSE) +  # Crée un graphique en violon
-  geom_boxplot(width = 0.1, outlier.shape = NA) +  # Ajoute une boîte à moustaches
+  geom_violin(trim = FALSE) + 
+  geom_boxplot(width = 0.1, outlier.shape = NA) +  
   labs(title = "Indice Chao1", 
        x = "Groupe", 
        y = "Indice Chao1") +
-  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
+  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +   
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotation des labels de l'axe x
-  scale_x_discrete(limits = c("Wild", "Aqua")) +  # Inverser l'ordre de l'axe x
-  # Ajouter "NS" ou "*" en fonction du résultat du test
+  scale_x_discrete(limits = c("Wild", "Aqua")) +  
   geom_text(x = 1.5, y = max(richness_div$Chao1) + 0.1, label = chao_label, size = 5)
 ```
 ```{r}
 # Test de Wilcoxon pour la richesse observée (Observed)
 observed_test <- wilcox.test(Observed ~ Source, data = richness_div)
-# Déterminer si l'ajout de "NS" ou "*" est nécessaire pour la richesse observée
 observed_label <- ifelse(observed_test$p.value < 0.05, "*", "NS")
 
-# Graphique en violon pour la richesse observée
 ggplot(richness_div, aes(x = Source, y = Observed, fill = Source)) +
   geom_violin(trim = FALSE) +  # Crée un graphique en violon
   geom_boxplot(width = 0.1, outlier.shape = NA) +  # Ajoute une boîte à moustaches
   labs(title = "Richesse Observée", 
        x = "Groupe", 
        y = "Richesse Observée") +
-  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
+  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotation des labels de l'axe x
-  scale_x_discrete(limits = c("Wild", "Aqua")) +  # Inverser l'ordre de l'axe x
-  # Ajouter "NS" ou "*" en fonction du résultat du test
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  
+  scale_x_discrete(limits = c("Wild", "Aqua")) +  
   geom_text(x = 1.5, y = max(richness_div$Observed) + 0.1, label = observed_label, size = 5)
 ```
 
@@ -290,7 +275,6 @@ ggplot(richness_div, aes(x = Source, y = Observed, fill = Source)) +
 # Test de significativité pour Shannon
 shannon_test <- wilcox.test(Shannon ~ Source, data = richness_div)
 
-# Déterminer si l'ajout de "NS" ou "*" est nécessaire pour Shannon
 shannon_label <- ifelse(shannon_test$p.value < 0.05, "*", "NS")
 
 # Graphique en violon pour la richesse observée (Shannon)
@@ -300,35 +284,13 @@ ggplot(richness_div, aes(x = Source, y = Shannon, fill = Source)) +
   labs(title = "Diversity Alpha (Indice de Shannon)", 
        x = "Groupe", 
        y = "Indice de Shannon") +
-  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
+  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotation des labels de l'axe x
-  scale_x_discrete(limits = c("Wild", "Aqua")) +  # Inverser l'ordre de l'axe x
-  # Ajouter "NS" ou "*" en fonction du résultat du test
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  
+  scale_x_discrete(limits = c("Wild", "Aqua")) +  
   geom_text(x = 1.5, y = max(richness_div$Shannon) + 0.1, label = shannon_label, size = 5)
 ```
-```{r}
-# Test de significativité pour Shannon
-shannon_test <- wilcox.test(Shannon ~ Source, data = richness_div)
 
-# Déterminer si l'ajout de "NS" ou "*" est nécessaire pour Shannon
-shannon_label <- ifelse(shannon_test$p.value < 0.05, "*", "NS")
-
-# Graphique en violon pour la richesse observée (Shannon)
-ggplot(richness_div, aes(x = Source, y = Shannon, fill = Source)) +
-  geom_violin(trim = FALSE) +  # Crée un graphique en violon
-  geom_boxplot(width = 0.1, outlier.shape = NA) +  # Ajoute une boîte à moustaches
-  labs(title = "Diversity Alpha (Indice de Shannon)", 
-       x = "Groupe", 
-       y = "Indice de Shannon") +
-  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotation des labels de l'axe x
-  scale_x_discrete(limits = c("Wild", "Aqua")) +  # Inverser l'ordre de l'axe x
-  # Ajouter "NS" ou "*" en fonction du résultat du test
-  geom_text(x = 1.5, y = max(richness_div$Shannon) + 0.1, label = shannon_label, size = 5)
-
-```
 
 ```{r}
 library(ggplot2)
@@ -336,11 +298,9 @@ library(ggplot2)
 # Test de Wilcoxon pour Simpson
 simpson_test <- wilcox.test(Simpson ~ Source, data = richness_div)
 
-# Déterminer si l'ajout de "NS" ou "*" est nécessaire pour Simpson
 simpson_label <- ifelse(simpson_test$p.value < 0.05, "*", "NS")
 
-# Calculer la position y pour le texte
-y_position <- max(richness_div$Simpson, na.rm = TRUE) + 0.1  # Ajuste la position y au-dessus des valeurs
+y_position <- max(richness_div$Simpson, na.rm = TRUE) + 0.1  
 
 # Graphique en violon pour l'indice Simpson
 ggplot(richness_div, aes(x = Source, y = Simpson, fill = Source)) +
@@ -349,66 +309,19 @@ ggplot(richness_div, aes(x = Source, y = Simpson, fill = Source)) +
   labs(title = "Indice Simpson", 
        x = "Groupe", 
        y = "Indice Simpson") +
-  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
+  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) + 
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotation des labels de l'axe x
-  scale_x_discrete(limits = c("Wild", "Aqua")) +  # Inverser l'ordre de l'axe x
-  # Ajouter "NS" ou "*" en fonction du résultat du test
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  
+  scale_x_discrete(limits = c("Wild", "Aqua")) +  
   geom_text(aes(x = 1.5, y = y_position, label = simpson_label), size = 5)
 ```
 
 
 ```{r}
-simpson_test <- wilcox.test(Simpson ~ Source, data = richness_div)
 
-# Déterminer si l'ajout de "NS" ou "*" est nécessaire pour Simpson
-simpson_label <- ifelse(simpson_test$p.value < 0.05, "*", "NS")
-
-# Calculer la position y pour le texte
-y_position <- max(richness_div$Simpson, na.rm = TRUE) + 0.1  # Ajuste la position y au-dessus des valeurs
-
-# Graphique en violon pour l'indice Simpson
-ggplot(richness_div, aes(x = Source, y = Simpson, fill = Source)) +
-  geom_violin(trim = FALSE) +  # Crée un graphique en violon
-  geom_boxplot(width = 0.1, outlier.shape = NA) +  # Ajoute une boîte à moustaches
-  labs(title = "Indice Simpson", 
-       x = "Groupe", 
-       y = "Indice Simpson") +
-  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotation des labels de l'axe x
-  scale_x_discrete(limits = c("Wild", "Aqua")) +  # Inverser l'ordre de l'axe x
-  # Ajouter "NS" ou "*" en fonction du résultat du test
-  geom_text(aes(x = 1.5, y = y_position, label = simpson_label), size = 5)
-```
-
-```{r}
-# Installer le package circlize
 install.packages("circlize")
 
-# Charger le package circlize
 library(circlize)
-```
-
-```{r}
-metabolic_pathways <- data.frame(
-  Pathway = c("Glycolysis", "TCA Cycle", "Fatty Acid Metabolism", "Amino Acid Metabolism"),
-  Aqua = c(5, 10, 3, 2),
-  Wild = c(8, 7, 4, 5)
-)
-
-# Transformation du data frame pour le ggplot
-library(tidyr)
-metabolic_pathways_long <- gather(metabolic_pathways, key = "Group", value = "Abundance", -Pathway)
-
-# Visualisation des voies métaboliques avec ggplot2
-library(ggplot2)
-ggplot(metabolic_pathways_long, aes(x = Pathway, y = Abundance, fill = Group)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Abondance des Voies Métaboliques", x = "Voie Métabolique", y = "Abondance") +
-  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
-  theme_minimal() +  # Thème minimal
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotation des labels
 ```
 
 
@@ -431,19 +344,51 @@ ggplot(pcoa_data, aes(x = MDS1, y = MDS2, color = Source)) +
     x = paste("PCoA1 (", pc1_variance, "%)", sep = ""),
     y = paste("PCoA2 (", pc2_variance, "%)", sep = "")
   ) + 
-  scale_color_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
-  theme_minimal()  # Thème minimal pour une meilleure lisibilité
+  scale_color_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  
+  theme_minimal()  
 
+```
+
+
+```{r}
+# Charger les bibliothèques nécessaires
+library(phyloseq)
+library(ggplot2)
+library(pheatmap)
+
+ps_normalized <- transform_sample_counts(ps, function(otu) otu / sum(otu))
+
+otu_matrix <- as.matrix(otu_table(ps_normalized))
+rownames(otu_matrix) <- paste0("ASV", seq_len(nrow(otu_matrix)))  
+
+
+top_OTUs <- names(sort(taxa_sums(ps), decreasing = TRUE))[1:20]
+otu_top_matrix <- otu_matrix[top_OTUs, ]
+
+pheatmap(otu_top_matrix,
+         cluster_rows = TRUE,
+         cluster_cols = TRUE,
+         scale = "row",
+         show_rownames = TRUE,
+         show_colnames = TRUE,
+         color = colorRampPalette(c("blue", "white", "red"))(50),
+         main = "Heatmap des 20 OTUs les plus abondants")
+
+
+```
+```{r}
+plot_heatmap(ps_normalized, method = "NMDS", distance = "bray")
 ```
 
 ```{r}
-plot_heatmap(ps, 
-             method = "PCoA",            # Méthode d'ordination si nécessaire
-             distance = "bray",          # Distance Bray-Curtis
-             taxa.label = "Genus",       # Étiquettes des taxons
-             sample.label = "Source",    # Étiquettes des échantillons
-             low = "white", high = "red" # Couleurs personnalisées
-)
+ plot_heatmap(ps_normalized, method = "NMDS", distance = "bray", 
+               taxa.label = "Genus", taxa.order = "Genus", 
+               low="beige", high="red", na.value="beige")
 ```
+
+
+
+
+
 
 

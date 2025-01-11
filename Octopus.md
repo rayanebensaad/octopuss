@@ -89,7 +89,7 @@ errR <- learnErrors(filtRs, multithread=TRUE)
 plotErrors(errF, nominalQ=TRUE)
 ```
 
-    ## Warning: Transformation introduced infinite values in continuous y-axis
+    ## Warning in scale_y_log10(): log-10 transformation introduced infinite values.
 
 ![](Octopus_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
@@ -97,8 +97,8 @@ plotErrors(errF, nominalQ=TRUE)
 plotErrors(errR, nominalQ=TRUE)
 ```
 
-    ## Warning: Transformation introduced infinite values in continuous y-axis
-    ## Transformation introduced infinite values in continuous y-axis
+    ## Warning in scale_y_log10(): log-10 transformation introduced infinite values.
+    ## log-10 transformation introduced infinite values.
 
 ![](Octopus_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
@@ -377,7 +377,7 @@ library(Biostrings); packageVersion("Biostrings")
 library(ggplot2); packageVersion("ggplot2")
 ```
 
-    ## [1] '3.4.3'
+    ## [1] '3.5.1'
 
 ``` r
 theme_set(theme_bw())
@@ -432,15 +432,12 @@ print(donnesoctu)
     ## 20          A1       Aquaculture1
 
 ``` r
-# Chargement des données
 donnesoctu <- read.csv("donnéesoctu.csv", sep = ",")
 
-# Extraction des identifiants et de la culture
 samples.out <- donnesoctu$Run
 identifier <- substr(samples.out, 1, nchar(samples.out) - 1) 
 culture <- substr(samples.out, nchar(samples.out), nchar(samples.out))
 
-# Création du data frame des métadonnées
 samdf <- data.frame(Identifier = identifier, Culture = culture, row.names = samples.out)
 
 samdf <- data.frame(
@@ -449,17 +446,14 @@ samdf <- data.frame(
 )
 rownames(samdf) <- samdf$SampleName
 
-# Vérification des dimensions
 if (!all(rownames(samdf) %in% rownames(seqtab.nochim))) {
   stop("Les noms d'échantillons dans samdf ne correspondent pas à ceux de seqtab.nochim")
 }
 
-# Création de l'objet phyloseq
 ps <- phyloseq(otu_table(seqtab.nochim, taxa_are_rows=FALSE), 
                sample_data(samdf), 
                tax_table(taxa))
 
-# Vérification de l'objet phyloseq
 print(ps)
 ```
 
@@ -494,40 +488,46 @@ ord.nmds.bray <- ordinate(ps.prop, method="NMDS", distance="bray")
 ```
 
     ## Run 0 stress 0.06274095 
-    ## Run 1 stress 0.05697246 
+    ## Run 1 stress 0.06308217 
+    ## ... Procrustes: rmse 0.01332192  max resid 0.03310714 
+    ## Run 2 stress 0.05683548 
     ## ... New best solution
-    ## ... Procrustes: rmse 0.04243412  max resid 0.1350023 
-    ## Run 2 stress 0.05651033 
+    ## ... Procrustes: rmse 0.04400443  max resid 0.1405027 
+    ## Run 3 stress 0.06296138 
+    ## Run 4 stress 0.06291067 
+    ## Run 5 stress 0.05664775 
     ## ... New best solution
-    ## ... Procrustes: rmse 0.02458004  max resid 0.06346463 
-    ## Run 3 stress 0.06290097 
-    ## Run 4 stress 0.06261806 
-    ## Run 5 stress 0.05639226 
+    ## ... Procrustes: rmse 0.01935395  max resid 0.06323948 
+    ## Run 6 stress 0.05664779 
+    ## ... Procrustes: rmse 2.760437e-05  max resid 7.73707e-05 
+    ## ... Similar to previous best
+    ## Run 7 stress 0.05664772 
     ## ... New best solution
-    ## ... Procrustes: rmse 0.01829225  max resid 0.06459957 
-    ## Run 6 stress 0.06299471 
-    ## Run 7 stress 0.06275491 
-    ## Run 8 stress 0.05664774 
-    ## ... Procrustes: rmse 0.01109458  max resid 0.03181307 
-    ## Run 9 stress 0.05720155 
-    ## Run 10 stress 0.06291898 
-    ## Run 11 stress 0.05646427 
-    ## ... Procrustes: rmse 0.005479301  max resid 0.01723558 
-    ## Run 12 stress 0.05767436 
-    ## Run 13 stress 0.06379996 
-    ## Run 14 stress 0.0629947 
-    ## Run 15 stress 0.06285948 
-    ## Run 16 stress 0.05746731 
-    ## Run 17 stress 0.05695456 
-    ## Run 18 stress 0.05664776 
-    ## ... Procrustes: rmse 0.01109697  max resid 0.03181676 
-    ## Run 19 stress 0.05664772 
-    ## ... Procrustes: rmse 0.01108224  max resid 0.03182205 
-    ## Run 20 stress 0.05699858 
-    ## *** Best solution was not repeated -- monoMDS stopping criteria:
-    ##      1: no. of iterations >= maxit
-    ##     18: stress ratio > sratmax
-    ##      1: scale factor of the gradient < sfgrmin
+    ## ... Procrustes: rmse 0.0001394632  max resid 0.0004111758 
+    ## ... Similar to previous best
+    ## Run 8 stress 0.05683545 
+    ## ... Procrustes: rmse 0.01940078  max resid 0.06346055 
+    ## Run 9 stress 0.06289028 
+    ## Run 10 stress 0.05736108 
+    ## Run 11 stress 0.0631123 
+    ## Run 12 stress 0.05686703 
+    ## ... Procrustes: rmse 0.01632472  max resid 0.05039482 
+    ## Run 13 stress 0.06256271 
+    ## Run 14 stress 0.0653499 
+    ## Run 15 stress 0.05671209 
+    ## ... Procrustes: rmse 0.005426775  max resid 0.01942334 
+    ## Run 16 stress 0.0631431 
+    ## Run 17 stress 0.05693194 
+    ## ... Procrustes: rmse 0.01446689  max resid 0.0419578 
+    ## Run 18 stress 0.05651037 
+    ## ... New best solution
+    ## ... Procrustes: rmse 0.02206188  max resid 0.06369955 
+    ## Run 19 stress 0.05651033 
+    ## ... New best solution
+    ## ... Procrustes: rmse 0.0001341994  max resid 0.0002820648 
+    ## ... Similar to previous best
+    ## Run 20 stress 0.0571061 
+    ## *** Best solution repeated 1 times
 
 ``` r
 sum(is.na(otu_table(ps.prop)))
@@ -573,7 +573,7 @@ str(ps.prop)
     ##   .. .. .. .. ..@ xp_list                    :List of 1
     ##   .. .. .. .. .. ..$ :<externalptr> 
     ##   .. .. .. .. ..@ .link_to_cached_object_list:List of 1
-    ##   .. .. .. .. .. ..$ :<environment: 0x5594513e7390> 
+    ##   .. .. .. .. .. ..$ :<environment: 0x5627590f86f0> 
     ##   .. .. ..@ ranges         :Formal class 'GroupedIRanges' [package "XVector"] with 7 slots
     ##   .. .. .. .. ..@ group          : int [1:2675] 1 1 1 1 1 1 1 1 1 1 ...
     ##   .. .. .. .. ..@ start          : int [1:2675] 1 441 881 1321 1761 2201 2641 3081 3521 3961 ...
@@ -596,41 +596,40 @@ ord.nmds.bray <- ordinate(ps.prop, method = "NMDS", distance = "bray")
 ```
 
     ## Run 0 stress 0.06274095 
-    ## Run 1 stress 0.06279899 
-    ## ... Procrustes: rmse 0.01247477  max resid 0.03268066 
-    ## Run 2 stress 0.05664775 
+    ## Run 1 stress 0.06275492 
+    ## ... Procrustes: rmse 0.01096158  max resid 0.03253067 
+    ## Run 2 stress 0.05683545 
     ## ... New best solution
-    ## ... Procrustes: rmse 0.04428436  max resid 0.1362264 
-    ## Run 3 stress 0.06290849 
-    ## Run 4 stress 0.05639219 
+    ## ... Procrustes: rmse 0.04400642  max resid 0.140524 
+    ## Run 3 stress 0.05652208 
     ## ... New best solution
-    ## ... Procrustes: rmse 0.01105424  max resid 0.03161863 
-    ## Run 5 stress 0.06290248 
-    ## Run 6 stress 0.05646423 
-    ## ... Procrustes: rmse 0.005455272  max resid 0.01726411 
-    ## Run 7 stress 0.0566478 
-    ## ... Procrustes: rmse 0.01104875  max resid 0.03161612 
-    ## Run 8 stress 0.0570373 
-    ## Run 9 stress 0.05686702 
-    ## ... Procrustes: rmse 0.01215363  max resid 0.04915482 
-    ## Run 10 stress 0.05683547 
-    ## ... Procrustes: rmse 0.01969661  max resid 0.06431392 
-    ## Run 11 stress 0.05652209 
-    ## ... Procrustes: rmse 0.01054061  max resid 0.03102557 
-    ## Run 12 stress 0.0625627 
-    ## Run 13 stress 0.05703731 
-    ## Run 14 stress 0.05720155 
-    ## Run 15 stress 0.06274362 
-    ## Run 16 stress 0.0631431 
-    ## Run 17 stress 0.05720157 
-    ## Run 18 stress 0.05703732 
-    ## Run 19 stress 0.05683546 
-    ## ... Procrustes: rmse 0.01968339  max resid 0.06427322 
-    ## Run 20 stress 0.05639218 
+    ## ... Procrustes: rmse 0.01743634  max resid 0.06466823 
+    ## Run 4 stress 0.06530668 
+    ## Run 5 stress 0.06285958 
+    ## Run 6 stress 0.06276528 
+    ## Run 7 stress 0.05703732 
+    ## Run 8 stress 0.05646422 
     ## ... New best solution
-    ## ... Procrustes: rmse 2.299219e-05  max resid 6.362423e-05 
-    ## ... Similar to previous best
-    ## *** Best solution repeated 1 times
+    ## ... Procrustes: rmse 0.01194558  max resid 0.03115775 
+    ## Run 9 stress 0.05720156 
+    ## Run 10 stress 0.05683545 
+    ## ... Procrustes: rmse 0.02104345  max resid 0.06321037 
+    ## Run 11 stress 0.0627549 
+    ## Run 12 stress 0.0631431 
+    ## Run 13 stress 0.05664776 
+    ## ... Procrustes: rmse 0.009874666  max resid 0.0317121 
+    ## Run 14 stress 0.0569725 
+    ## Run 15 stress 0.06286964 
+    ## Run 16 stress 0.05639219 
+    ## ... New best solution
+    ## ... Procrustes: rmse 0.005453632  max resid 0.01729735 
+    ## Run 17 stress 0.06256268 
+    ## Run 18 stress 0.06290097 
+    ## Run 19 stress 0.05736113 
+    ## Run 20 stress 0.06314315 
+    ## *** Best solution was not repeated -- monoMDS stopping criteria:
+    ##      2: no. of iterations >= maxit
+    ##     18: stress ratio > sratmax
 
 ``` r
 plot_ordination(ps.prop, ord.nmds.bray, title="Bray NMDS")
@@ -651,8 +650,8 @@ plot_bar(ps.top20, fill = "Phylum") + facet_wrap(~Source, scales="free_x")
 theme_bw()
 ```
 
-    ## List of 97
-    ##  $ line                      :List of 6
+    ## List of 136
+    ##  $ line                            :List of 6
     ##   ..$ colour       : chr "black"
     ##   ..$ linewidth    : num 0.5
     ##   ..$ linetype     : num 1
@@ -660,14 +659,14 @@ theme_bw()
     ##   ..$ arrow        : logi FALSE
     ##   ..$ inherit.blank: logi TRUE
     ##   ..- attr(*, "class")= chr [1:2] "element_line" "element"
-    ##  $ rect                      :List of 5
+    ##  $ rect                            :List of 5
     ##   ..$ fill         : chr "white"
     ##   ..$ colour       : chr "black"
     ##   ..$ linewidth    : num 0.5
     ##   ..$ linetype     : num 1
     ##   ..$ inherit.blank: logi TRUE
     ##   ..- attr(*, "class")= chr [1:2] "element_rect" "element"
-    ##  $ text                      :List of 11
+    ##  $ text                            :List of 11
     ##   ..$ family       : chr ""
     ##   ..$ face         : chr "plain"
     ##   ..$ colour       : chr "black"
@@ -681,10 +680,10 @@ theme_bw()
     ##   ..$ debug        : logi FALSE
     ##   ..$ inherit.blank: logi TRUE
     ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
-    ##  $ title                     : NULL
-    ##  $ aspect.ratio              : NULL
-    ##  $ axis.title                : NULL
-    ##  $ axis.title.x              :List of 11
+    ##  $ title                           : NULL
+    ##  $ aspect.ratio                    : NULL
+    ##  $ axis.title                      : NULL
+    ##  $ axis.title.x                    :List of 11
     ##   ..$ family       : NULL
     ##   ..$ face         : NULL
     ##   ..$ colour       : NULL
@@ -698,7 +697,7 @@ theme_bw()
     ##   ..$ debug        : NULL
     ##   ..$ inherit.blank: logi TRUE
     ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
-    ##  $ axis.title.x.top          :List of 11
+    ##  $ axis.title.x.top                :List of 11
     ##   ..$ family       : NULL
     ##   ..$ face         : NULL
     ##   ..$ colour       : NULL
@@ -712,8 +711,8 @@ theme_bw()
     ##   ..$ debug        : NULL
     ##   ..$ inherit.blank: logi TRUE
     ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
-    ##  $ axis.title.x.bottom       : NULL
-    ##  $ axis.title.y              :List of 11
+    ##  $ axis.title.x.bottom             : NULL
+    ##  $ axis.title.y                    :List of 11
     ##   ..$ family       : NULL
     ##   ..$ face         : NULL
     ##   ..$ colour       : NULL
@@ -727,14 +726,14 @@ theme_bw()
     ##   ..$ debug        : NULL
     ##   ..$ inherit.blank: logi TRUE
     ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
-    ##  $ axis.title.y.left         : NULL
-    ##  $ axis.title.y.right        :List of 11
+    ##  $ axis.title.y.left               : NULL
+    ##  $ axis.title.y.right              :List of 11
     ##   ..$ family       : NULL
     ##   ..$ face         : NULL
     ##   ..$ colour       : NULL
     ##   ..$ size         : NULL
     ##   ..$ hjust        : NULL
-    ##   ..$ vjust        : num 0
+    ##   ..$ vjust        : num 1
     ##   ..$ angle        : num -90
     ##   ..$ lineheight   : NULL
     ##   ..$ margin       : 'margin' num [1:4] 0points 0points 0points 2.75points
@@ -742,7 +741,7 @@ theme_bw()
     ##   ..$ debug        : NULL
     ##   ..$ inherit.blank: logi TRUE
     ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
-    ##  $ axis.text                 :List of 11
+    ##  $ axis.text                       :List of 11
     ##   ..$ family       : NULL
     ##   ..$ face         : NULL
     ##   ..$ colour       : chr "grey30"
@@ -755,7 +754,7 @@ theme_bw()
     ##   ..$ debug        : NULL
     ##   ..$ inherit.blank: logi TRUE
     ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
-    ##  $ axis.text.x               :List of 11
+    ##  $ axis.text.x                     :List of 11
     ##   ..$ family       : NULL
     ##   ..$ face         : NULL
     ##   ..$ colour       : NULL
@@ -769,7 +768,7 @@ theme_bw()
     ##   ..$ debug        : NULL
     ##   ..$ inherit.blank: logi TRUE
     ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
-    ##  $ axis.text.x.top           :List of 11
+    ##  $ axis.text.x.top                 :List of 11
     ##   ..$ family       : NULL
     ##   ..$ face         : NULL
     ##   ..$ colour       : NULL
@@ -783,8 +782,8 @@ theme_bw()
     ##   ..$ debug        : NULL
     ##   ..$ inherit.blank: logi TRUE
     ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
-    ##  $ axis.text.x.bottom        : NULL
-    ##  $ axis.text.y               :List of 11
+    ##  $ axis.text.x.bottom              : NULL
+    ##  $ axis.text.y                     :List of 11
     ##   ..$ family       : NULL
     ##   ..$ face         : NULL
     ##   ..$ colour       : NULL
@@ -798,8 +797,8 @@ theme_bw()
     ##   ..$ debug        : NULL
     ##   ..$ inherit.blank: logi TRUE
     ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
-    ##  $ axis.text.y.left          : NULL
-    ##  $ axis.text.y.right         :List of 11
+    ##  $ axis.text.y.left                : NULL
+    ##  $ axis.text.y.right               :List of 11
     ##   ..$ family       : NULL
     ##   ..$ face         : NULL
     ##   ..$ colour       : NULL
@@ -813,274 +812,153 @@ theme_bw()
     ##   ..$ debug        : NULL
     ##   ..$ inherit.blank: logi TRUE
     ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
-    ##  $ axis.ticks                :List of 6
-    ##   ..$ colour       : chr "grey20"
-    ##   ..$ linewidth    : NULL
-    ##   ..$ linetype     : NULL
-    ##   ..$ lineend      : NULL
-    ##   ..$ arrow        : logi FALSE
-    ##   ..$ inherit.blank: logi TRUE
-    ##   ..- attr(*, "class")= chr [1:2] "element_line" "element"
-    ##  $ axis.ticks.x              : NULL
-    ##  $ axis.ticks.x.top          : NULL
-    ##  $ axis.ticks.x.bottom       : NULL
-    ##  $ axis.ticks.y              : NULL
-    ##  $ axis.ticks.y.left         : NULL
-    ##  $ axis.ticks.y.right        : NULL
-    ##  $ axis.ticks.length         : 'simpleUnit' num 2.75points
-    ##   ..- attr(*, "unit")= int 8
-    ##  $ axis.ticks.length.x       : NULL
-    ##  $ axis.ticks.length.x.top   : NULL
-    ##  $ axis.ticks.length.x.bottom: NULL
-    ##  $ axis.ticks.length.y       : NULL
-    ##  $ axis.ticks.length.y.left  : NULL
-    ##  $ axis.ticks.length.y.right : NULL
-    ##  $ axis.line                 : list()
-    ##   ..- attr(*, "class")= chr [1:2] "element_blank" "element"
-    ##  $ axis.line.x               : NULL
-    ##  $ axis.line.x.top           : NULL
-    ##  $ axis.line.x.bottom        : NULL
-    ##  $ axis.line.y               : NULL
-    ##  $ axis.line.y.left          : NULL
-    ##  $ axis.line.y.right         : NULL
-    ##  $ legend.background         :List of 5
-    ##   ..$ fill         : NULL
-    ##   ..$ colour       : logi NA
-    ##   ..$ linewidth    : NULL
-    ##   ..$ linetype     : NULL
-    ##   ..$ inherit.blank: logi TRUE
-    ##   ..- attr(*, "class")= chr [1:2] "element_rect" "element"
-    ##  $ legend.margin             : 'margin' num [1:4] 5.5points 5.5points 5.5points 5.5points
-    ##   ..- attr(*, "unit")= int 8
-    ##  $ legend.spacing            : 'simpleUnit' num 11points
-    ##   ..- attr(*, "unit")= int 8
-    ##  $ legend.spacing.x          : NULL
-    ##  $ legend.spacing.y          : NULL
-    ##  $ legend.key                :List of 5
-    ##   ..$ fill         : chr "white"
-    ##   ..$ colour       : logi NA
-    ##   ..$ linewidth    : NULL
-    ##   ..$ linetype     : NULL
-    ##   ..$ inherit.blank: logi TRUE
-    ##   ..- attr(*, "class")= chr [1:2] "element_rect" "element"
-    ##  $ legend.key.size           : 'simpleUnit' num 1.2lines
-    ##   ..- attr(*, "unit")= int 3
-    ##  $ legend.key.height         : NULL
-    ##  $ legend.key.width          : NULL
-    ##  $ legend.text               :List of 11
-    ##   ..$ family       : NULL
-    ##   ..$ face         : NULL
-    ##   ..$ colour       : NULL
-    ##   ..$ size         : 'rel' num 0.8
-    ##   ..$ hjust        : NULL
-    ##   ..$ vjust        : NULL
-    ##   ..$ angle        : NULL
-    ##   ..$ lineheight   : NULL
-    ##   ..$ margin       : NULL
-    ##   ..$ debug        : NULL
-    ##   ..$ inherit.blank: logi TRUE
-    ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
-    ##  $ legend.text.align         : NULL
-    ##  $ legend.title              :List of 11
+    ##  $ axis.text.theta                 : NULL
+    ##  $ axis.text.r                     :List of 11
     ##   ..$ family       : NULL
     ##   ..$ face         : NULL
     ##   ..$ colour       : NULL
     ##   ..$ size         : NULL
-    ##   ..$ hjust        : num 0
-    ##   ..$ vjust        : NULL
-    ##   ..$ angle        : NULL
-    ##   ..$ lineheight   : NULL
-    ##   ..$ margin       : NULL
-    ##   ..$ debug        : NULL
-    ##   ..$ inherit.blank: logi TRUE
-    ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
-    ##  $ legend.title.align        : NULL
-    ##  $ legend.position           : chr "right"
-    ##  $ legend.direction          : NULL
-    ##  $ legend.justification      : chr "center"
-    ##  $ legend.box                : NULL
-    ##  $ legend.box.just           : NULL
-    ##  $ legend.box.margin         : 'margin' num [1:4] 0cm 0cm 0cm 0cm
-    ##   ..- attr(*, "unit")= int 1
-    ##  $ legend.box.background     : list()
-    ##   ..- attr(*, "class")= chr [1:2] "element_blank" "element"
-    ##  $ legend.box.spacing        : 'simpleUnit' num 11points
-    ##   ..- attr(*, "unit")= int 8
-    ##  $ panel.background          :List of 5
-    ##   ..$ fill         : chr "white"
-    ##   ..$ colour       : logi NA
-    ##   ..$ linewidth    : NULL
-    ##   ..$ linetype     : NULL
-    ##   ..$ inherit.blank: logi TRUE
-    ##   ..- attr(*, "class")= chr [1:2] "element_rect" "element"
-    ##  $ panel.border              :List of 5
-    ##   ..$ fill         : logi NA
-    ##   ..$ colour       : chr "grey20"
-    ##   ..$ linewidth    : NULL
-    ##   ..$ linetype     : NULL
-    ##   ..$ inherit.blank: logi TRUE
-    ##   ..- attr(*, "class")= chr [1:2] "element_rect" "element"
-    ##  $ panel.spacing             : 'simpleUnit' num 5.5points
-    ##   ..- attr(*, "unit")= int 8
-    ##  $ panel.spacing.x           : NULL
-    ##  $ panel.spacing.y           : NULL
-    ##  $ panel.grid                :List of 6
-    ##   ..$ colour       : chr "grey92"
-    ##   ..$ linewidth    : NULL
-    ##   ..$ linetype     : NULL
-    ##   ..$ lineend      : NULL
-    ##   ..$ arrow        : logi FALSE
-    ##   ..$ inherit.blank: logi TRUE
-    ##   ..- attr(*, "class")= chr [1:2] "element_line" "element"
-    ##  $ panel.grid.major          : NULL
-    ##  $ panel.grid.minor          :List of 6
-    ##   ..$ colour       : NULL
-    ##   ..$ linewidth    : 'rel' num 0.5
-    ##   ..$ linetype     : NULL
-    ##   ..$ lineend      : NULL
-    ##   ..$ arrow        : logi FALSE
-    ##   ..$ inherit.blank: logi TRUE
-    ##   ..- attr(*, "class")= chr [1:2] "element_line" "element"
-    ##  $ panel.grid.major.x        : NULL
-    ##  $ panel.grid.major.y        : NULL
-    ##  $ panel.grid.minor.x        : NULL
-    ##  $ panel.grid.minor.y        : NULL
-    ##  $ panel.ontop               : logi FALSE
-    ##  $ plot.background           :List of 5
-    ##   ..$ fill         : NULL
-    ##   ..$ colour       : chr "white"
-    ##   ..$ linewidth    : NULL
-    ##   ..$ linetype     : NULL
-    ##   ..$ inherit.blank: logi TRUE
-    ##   ..- attr(*, "class")= chr [1:2] "element_rect" "element"
-    ##  $ plot.title                :List of 11
-    ##   ..$ family       : NULL
-    ##   ..$ face         : NULL
-    ##   ..$ colour       : NULL
-    ##   ..$ size         : 'rel' num 1.2
-    ##   ..$ hjust        : num 0
-    ##   ..$ vjust        : num 1
-    ##   ..$ angle        : NULL
-    ##   ..$ lineheight   : NULL
-    ##   ..$ margin       : 'margin' num [1:4] 0points 0points 5.5points 0points
-    ##   .. ..- attr(*, "unit")= int 8
-    ##   ..$ debug        : NULL
-    ##   ..$ inherit.blank: logi TRUE
-    ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
-    ##  $ plot.title.position       : chr "panel"
-    ##  $ plot.subtitle             :List of 11
-    ##   ..$ family       : NULL
-    ##   ..$ face         : NULL
-    ##   ..$ colour       : NULL
-    ##   ..$ size         : NULL
-    ##   ..$ hjust        : num 0
-    ##   ..$ vjust        : num 1
-    ##   ..$ angle        : NULL
-    ##   ..$ lineheight   : NULL
-    ##   ..$ margin       : 'margin' num [1:4] 0points 0points 5.5points 0points
-    ##   .. ..- attr(*, "unit")= int 8
-    ##   ..$ debug        : NULL
-    ##   ..$ inherit.blank: logi TRUE
-    ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
-    ##  $ plot.caption              :List of 11
-    ##   ..$ family       : NULL
-    ##   ..$ face         : NULL
-    ##   ..$ colour       : NULL
-    ##   ..$ size         : 'rel' num 0.8
-    ##   ..$ hjust        : num 1
-    ##   ..$ vjust        : num 1
-    ##   ..$ angle        : NULL
-    ##   ..$ lineheight   : NULL
-    ##   ..$ margin       : 'margin' num [1:4] 5.5points 0points 0points 0points
-    ##   .. ..- attr(*, "unit")= int 8
-    ##   ..$ debug        : NULL
-    ##   ..$ inherit.blank: logi TRUE
-    ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
-    ##  $ plot.caption.position     : chr "panel"
-    ##  $ plot.tag                  :List of 11
-    ##   ..$ family       : NULL
-    ##   ..$ face         : NULL
-    ##   ..$ colour       : NULL
-    ##   ..$ size         : 'rel' num 1.2
     ##   ..$ hjust        : num 0.5
-    ##   ..$ vjust        : num 0.5
+    ##   ..$ vjust        : NULL
     ##   ..$ angle        : NULL
     ##   ..$ lineheight   : NULL
-    ##   ..$ margin       : NULL
+    ##   ..$ margin       : 'margin' num [1:4] 0points 2.2points 0points 2.2points
+    ##   .. ..- attr(*, "unit")= int 8
     ##   ..$ debug        : NULL
     ##   ..$ inherit.blank: logi TRUE
     ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
-    ##  $ plot.tag.position         : chr "topleft"
-    ##  $ plot.margin               : 'margin' num [1:4] 5.5points 5.5points 5.5points 5.5points
-    ##   ..- attr(*, "unit")= int 8
-    ##  $ strip.background          :List of 5
-    ##   ..$ fill         : chr "grey85"
+    ##  $ axis.ticks                      :List of 6
     ##   ..$ colour       : chr "grey20"
+    ##   ..$ linewidth    : NULL
+    ##   ..$ linetype     : NULL
+    ##   ..$ lineend      : NULL
+    ##   ..$ arrow        : logi FALSE
+    ##   ..$ inherit.blank: logi TRUE
+    ##   ..- attr(*, "class")= chr [1:2] "element_line" "element"
+    ##  $ axis.ticks.x                    : NULL
+    ##  $ axis.ticks.x.top                : NULL
+    ##  $ axis.ticks.x.bottom             : NULL
+    ##  $ axis.ticks.y                    : NULL
+    ##  $ axis.ticks.y.left               : NULL
+    ##  $ axis.ticks.y.right              : NULL
+    ##  $ axis.ticks.theta                : NULL
+    ##  $ axis.ticks.r                    : NULL
+    ##  $ axis.minor.ticks.x.top          : NULL
+    ##  $ axis.minor.ticks.x.bottom       : NULL
+    ##  $ axis.minor.ticks.y.left         : NULL
+    ##  $ axis.minor.ticks.y.right        : NULL
+    ##  $ axis.minor.ticks.theta          : NULL
+    ##  $ axis.minor.ticks.r              : NULL
+    ##  $ axis.ticks.length               : 'simpleUnit' num 2.75points
+    ##   ..- attr(*, "unit")= int 8
+    ##  $ axis.ticks.length.x             : NULL
+    ##  $ axis.ticks.length.x.top         : NULL
+    ##  $ axis.ticks.length.x.bottom      : NULL
+    ##  $ axis.ticks.length.y             : NULL
+    ##  $ axis.ticks.length.y.left        : NULL
+    ##  $ axis.ticks.length.y.right       : NULL
+    ##  $ axis.ticks.length.theta         : NULL
+    ##  $ axis.ticks.length.r             : NULL
+    ##  $ axis.minor.ticks.length         : 'rel' num 0.75
+    ##  $ axis.minor.ticks.length.x       : NULL
+    ##  $ axis.minor.ticks.length.x.top   : NULL
+    ##  $ axis.minor.ticks.length.x.bottom: NULL
+    ##  $ axis.minor.ticks.length.y       : NULL
+    ##  $ axis.minor.ticks.length.y.left  : NULL
+    ##  $ axis.minor.ticks.length.y.right : NULL
+    ##  $ axis.minor.ticks.length.theta   : NULL
+    ##  $ axis.minor.ticks.length.r       : NULL
+    ##  $ axis.line                       : list()
+    ##   ..- attr(*, "class")= chr [1:2] "element_blank" "element"
+    ##  $ axis.line.x                     : NULL
+    ##  $ axis.line.x.top                 : NULL
+    ##  $ axis.line.x.bottom              : NULL
+    ##  $ axis.line.y                     : NULL
+    ##  $ axis.line.y.left                : NULL
+    ##  $ axis.line.y.right               : NULL
+    ##  $ axis.line.theta                 : NULL
+    ##  $ axis.line.r                     : NULL
+    ##  $ legend.background               :List of 5
+    ##   ..$ fill         : NULL
+    ##   ..$ colour       : logi NA
     ##   ..$ linewidth    : NULL
     ##   ..$ linetype     : NULL
     ##   ..$ inherit.blank: logi TRUE
     ##   ..- attr(*, "class")= chr [1:2] "element_rect" "element"
-    ##  $ strip.background.x        : NULL
-    ##  $ strip.background.y        : NULL
-    ##  $ strip.clip                : chr "inherit"
-    ##  $ strip.placement           : chr "inside"
-    ##  $ strip.text                :List of 11
+    ##  $ legend.margin                   : 'margin' num [1:4] 5.5points 5.5points 5.5points 5.5points
+    ##   ..- attr(*, "unit")= int 8
+    ##  $ legend.spacing                  : 'simpleUnit' num 11points
+    ##   ..- attr(*, "unit")= int 8
+    ##  $ legend.spacing.x                : NULL
+    ##  $ legend.spacing.y                : NULL
+    ##  $ legend.key                      : NULL
+    ##  $ legend.key.size                 : 'simpleUnit' num 1.2lines
+    ##   ..- attr(*, "unit")= int 3
+    ##  $ legend.key.height               : NULL
+    ##  $ legend.key.width                : NULL
+    ##  $ legend.key.spacing              : 'simpleUnit' num 5.5points
+    ##   ..- attr(*, "unit")= int 8
+    ##  $ legend.key.spacing.x            : NULL
+    ##  $ legend.key.spacing.y            : NULL
+    ##  $ legend.frame                    : NULL
+    ##  $ legend.ticks                    : NULL
+    ##  $ legend.ticks.length             : 'rel' num 0.2
+    ##  $ legend.axis.line                : NULL
+    ##  $ legend.text                     :List of 11
     ##   ..$ family       : NULL
     ##   ..$ face         : NULL
-    ##   ..$ colour       : chr "grey10"
+    ##   ..$ colour       : NULL
     ##   ..$ size         : 'rel' num 0.8
     ##   ..$ hjust        : NULL
     ##   ..$ vjust        : NULL
     ##   ..$ angle        : NULL
     ##   ..$ lineheight   : NULL
-    ##   ..$ margin       : 'margin' num [1:4] 4.4points 4.4points 4.4points 4.4points
-    ##   .. ..- attr(*, "unit")= int 8
+    ##   ..$ margin       : NULL
     ##   ..$ debug        : NULL
     ##   ..$ inherit.blank: logi TRUE
     ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
-    ##  $ strip.text.x              : NULL
-    ##  $ strip.text.x.bottom       : NULL
-    ##  $ strip.text.x.top          : NULL
-    ##  $ strip.text.y              :List of 11
+    ##  $ legend.text.position            : NULL
+    ##  $ legend.title                    :List of 11
     ##   ..$ family       : NULL
     ##   ..$ face         : NULL
     ##   ..$ colour       : NULL
     ##   ..$ size         : NULL
-    ##   ..$ hjust        : NULL
+    ##   ..$ hjust        : num 0
     ##   ..$ vjust        : NULL
-    ##   ..$ angle        : num -90
+    ##   ..$ angle        : NULL
     ##   ..$ lineheight   : NULL
     ##   ..$ margin       : NULL
     ##   ..$ debug        : NULL
     ##   ..$ inherit.blank: logi TRUE
     ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
-    ##  $ strip.text.y.left         :List of 11
-    ##   ..$ family       : NULL
-    ##   ..$ face         : NULL
-    ##   ..$ colour       : NULL
-    ##   ..$ size         : NULL
-    ##   ..$ hjust        : NULL
-    ##   ..$ vjust        : NULL
-    ##   ..$ angle        : num 90
-    ##   ..$ lineheight   : NULL
-    ##   ..$ margin       : NULL
-    ##   ..$ debug        : NULL
-    ##   ..$ inherit.blank: logi TRUE
-    ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
-    ##  $ strip.text.y.right        : NULL
-    ##  $ strip.switch.pad.grid     : 'simpleUnit' num 2.75points
+    ##  $ legend.title.position           : NULL
+    ##  $ legend.position                 : chr "right"
+    ##  $ legend.position.inside          : NULL
+    ##  $ legend.direction                : NULL
+    ##  $ legend.byrow                    : NULL
+    ##  $ legend.justification            : chr "center"
+    ##  $ legend.justification.top        : NULL
+    ##  $ legend.justification.bottom     : NULL
+    ##  $ legend.justification.left       : NULL
+    ##  $ legend.justification.right      : NULL
+    ##  $ legend.justification.inside     : NULL
+    ##  $ legend.location                 : NULL
+    ##  $ legend.box                      : NULL
+    ##  $ legend.box.just                 : NULL
+    ##  $ legend.box.margin               : 'margin' num [1:4] 0cm 0cm 0cm 0cm
+    ##   ..- attr(*, "unit")= int 1
+    ##  $ legend.box.background           : list()
+    ##   ..- attr(*, "class")= chr [1:2] "element_blank" "element"
+    ##  $ legend.box.spacing              : 'simpleUnit' num 11points
     ##   ..- attr(*, "unit")= int 8
-    ##  $ strip.switch.pad.wrap     : 'simpleUnit' num 2.75points
-    ##   ..- attr(*, "unit")= int 8
+    ##   [list output truncated]
     ##  - attr(*, "class")= chr [1:2] "theme" "gg"
     ##  - attr(*, "complete")= logi TRUE
     ##  - attr(*, "validate")= logi TRUE
 
 ``` r
-# Charger la bibliothèque nécessaire
 library(ggplot2)
 
-# Exemple de données
 data <- data.frame(
   Sample = rep(c("Aqua", "Wild"), each = 10),
   Phylum = rep(c("Proteobacteria", "Bacteroidota", "Firmicutes", "Actinobacteriota",
@@ -1089,45 +967,43 @@ data <- data.frame(
   Abundance = c(runif(10, 0.01, 0.25), runif(10, 0.01, 0.25))
 )
 
-# Créer le graphique avec un fond blanc
 ggplot(data, aes(x = Sample, y = Abundance, fill = Phylum)) +
-  geom_bar(stat = "identity", position = "stack") +  # Barres empilées
+  geom_bar(stat = "identity", position = "stack") +  
   labs(
     title = "Répartition des phylums microbiens",
     x = "Échantillons",
     y = "Abondance relative"
   ) +
-  theme_bw()  # Thème avec fond blanc
+  theme_bw()
 ```
 
 ![](Octopus_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
 
 ``` r
 library(ggplot2)
-library(viridis)  # Charger une palette de couleurs harmonieuse
+library(viridis)  
 ```
 
     ## Loading required package: viridisLite
 
 ``` r
-# Visualisation améliorée
 plot_bar(ps.top20, fill = "Phylum") +
   facet_wrap(~Source, scales = "free_x") +  # Facettes par Source
-  geom_bar(stat = "identity", color = "white", size = 0.2) +  # Contours blancs autour des segments
-  scale_fill_viridis_d(option = "plasma", name = "Phylum") +  # Palette de couleurs harmonieuse
+  geom_bar(stat = "identity", color = "white", size = 0.2) +  
+  scale_fill_viridis_d(option = "plasma", name = "Phylum") +  
   labs(
     title = "Abondance relative des Phylums microbiens",
     x = "Échantillons",
     y = "Abondance relative"
   ) +
-  theme_minimal() +  # Thème propre
+  theme_minimal() +  
   theme(
     text = element_text(size = 12),  # Taille générale des textes
     axis.text.x = element_text(angle = 45, hjust = 1, size = 10),  # Rotation des étiquettes X
-    legend.key.size = unit(0.5, "cm"),  # Taille des carrés de la légende
-    legend.position = "right",  # Position de la légende
-    panel.grid.major = element_blank(),  # Suppression des grandes grilles
-    panel.grid.minor = element_blank()   # Suppression des petites grilles
+    legend.key.size = unit(0.5, "cm"),  
+    legend.position = "right",  
+    panel.grid.major = element_blank(),  
+    panel.grid.minor = element_blank()   
   )
 ```
 
@@ -1142,10 +1018,8 @@ plot_bar(ps.top20, fill = "Phylum") +
 ``` r
 richness_div <- estimate_richness(ps, measures = c("Observed", "Shannon", "Simpson", "Chao1"))
 
-# Ajouter les groupes (Aqua et Wild) à la table de diversité
 richness_div$Source <- sample_data(ps)$Source
 
-# Vérifier à nouveau les résultats
 head(richness_div)
 ```
 
@@ -1161,21 +1035,19 @@ head(richness_div)
 # Test de significativité pour Chao1
 chao_test <- wilcox.test(Chao1 ~ Source, data = richness_div)
 
-# Déterminer si l'ajout de "NS" ou "*" est nécessaire pour Chao1
 chao_label <- ifelse(chao_test$p.value < 0.05, "*", "NS")
 
 # Graphique pour l'indice Chao1
 ggplot(richness_div, aes(x = Source, y = Chao1, fill = Source)) +
-  geom_violin(trim = FALSE) +  # Crée un graphique en violon
-  geom_boxplot(width = 0.1, outlier.shape = NA) +  # Ajoute une boîte à moustaches
+  geom_violin(trim = FALSE) + 
+  geom_boxplot(width = 0.1, outlier.shape = NA) +  
   labs(title = "Indice Chao1", 
        x = "Groupe", 
        y = "Indice Chao1") +
-  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
+  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +   
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotation des labels de l'axe x
-  scale_x_discrete(limits = c("Wild", "Aqua")) +  # Inverser l'ordre de l'axe x
-  # Ajouter "NS" ou "*" en fonction du résultat du test
+  scale_x_discrete(limits = c("Wild", "Aqua")) +  
   geom_text(x = 1.5, y = max(richness_div$Chao1) + 0.1, label = chao_label, size = 5)
 ```
 
@@ -1190,21 +1062,18 @@ observed_test <- wilcox.test(Observed ~ Source, data = richness_div)
     ## compute exact p-value with ties
 
 ``` r
-# Déterminer si l'ajout de "NS" ou "*" est nécessaire pour la richesse observée
 observed_label <- ifelse(observed_test$p.value < 0.05, "*", "NS")
 
-# Graphique en violon pour la richesse observée
 ggplot(richness_div, aes(x = Source, y = Observed, fill = Source)) +
   geom_violin(trim = FALSE) +  # Crée un graphique en violon
   geom_boxplot(width = 0.1, outlier.shape = NA) +  # Ajoute une boîte à moustaches
   labs(title = "Richesse Observée", 
        x = "Groupe", 
        y = "Richesse Observée") +
-  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
+  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotation des labels de l'axe x
-  scale_x_discrete(limits = c("Wild", "Aqua")) +  # Inverser l'ordre de l'axe x
-  # Ajouter "NS" ou "*" en fonction du résultat du test
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  
+  scale_x_discrete(limits = c("Wild", "Aqua")) +  
   geom_text(x = 1.5, y = max(richness_div$Observed) + 0.1, label = observed_label, size = 5)
 ```
 
@@ -1214,7 +1083,6 @@ ggplot(richness_div, aes(x = Source, y = Observed, fill = Source)) +
 # Test de significativité pour Shannon
 shannon_test <- wilcox.test(Shannon ~ Source, data = richness_div)
 
-# Déterminer si l'ajout de "NS" ou "*" est nécessaire pour Shannon
 shannon_label <- ifelse(shannon_test$p.value < 0.05, "*", "NS")
 
 # Graphique en violon pour la richesse observée (Shannon)
@@ -1224,39 +1092,14 @@ ggplot(richness_div, aes(x = Source, y = Shannon, fill = Source)) +
   labs(title = "Diversity Alpha (Indice de Shannon)", 
        x = "Groupe", 
        y = "Indice de Shannon") +
-  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
+  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotation des labels de l'axe x
-  scale_x_discrete(limits = c("Wild", "Aqua")) +  # Inverser l'ordre de l'axe x
-  # Ajouter "NS" ou "*" en fonction du résultat du test
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  
+  scale_x_discrete(limits = c("Wild", "Aqua")) +  
   geom_text(x = 1.5, y = max(richness_div$Shannon) + 0.1, label = shannon_label, size = 5)
 ```
 
 ![](Octopus_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
-
-``` r
-# Test de significativité pour Shannon
-shannon_test <- wilcox.test(Shannon ~ Source, data = richness_div)
-
-# Déterminer si l'ajout de "NS" ou "*" est nécessaire pour Shannon
-shannon_label <- ifelse(shannon_test$p.value < 0.05, "*", "NS")
-
-# Graphique en violon pour la richesse observée (Shannon)
-ggplot(richness_div, aes(x = Source, y = Shannon, fill = Source)) +
-  geom_violin(trim = FALSE) +  # Crée un graphique en violon
-  geom_boxplot(width = 0.1, outlier.shape = NA) +  # Ajoute une boîte à moustaches
-  labs(title = "Diversity Alpha (Indice de Shannon)", 
-       x = "Groupe", 
-       y = "Indice de Shannon") +
-  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotation des labels de l'axe x
-  scale_x_discrete(limits = c("Wild", "Aqua")) +  # Inverser l'ordre de l'axe x
-  # Ajouter "NS" ou "*" en fonction du résultat du test
-  geom_text(x = 1.5, y = max(richness_div$Shannon) + 0.1, label = shannon_label, size = 5)
-```
-
-![](Octopus_files/figure-gfm/unnamed-chunk-41-1.png)<!-- -->
 
 ``` r
 library(ggplot2)
@@ -1264,11 +1107,9 @@ library(ggplot2)
 # Test de Wilcoxon pour Simpson
 simpson_test <- wilcox.test(Simpson ~ Source, data = richness_div)
 
-# Déterminer si l'ajout de "NS" ou "*" est nécessaire pour Simpson
 simpson_label <- ifelse(simpson_test$p.value < 0.05, "*", "NS")
 
-# Calculer la position y pour le texte
-y_position <- max(richness_div$Simpson, na.rm = TRUE) + 0.1  # Ajuste la position y au-dessus des valeurs
+y_position <- max(richness_div$Simpson, na.rm = TRUE) + 0.1  
 
 # Graphique en violon pour l'indice Simpson
 ggplot(richness_div, aes(x = Source, y = Simpson, fill = Source)) +
@@ -1277,44 +1118,16 @@ ggplot(richness_div, aes(x = Source, y = Simpson, fill = Source)) +
   labs(title = "Indice Simpson", 
        x = "Groupe", 
        y = "Indice Simpson") +
-  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
+  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) + 
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotation des labels de l'axe x
-  scale_x_discrete(limits = c("Wild", "Aqua")) +  # Inverser l'ordre de l'axe x
-  # Ajouter "NS" ou "*" en fonction du résultat du test
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  
+  scale_x_discrete(limits = c("Wild", "Aqua")) +  
   geom_text(aes(x = 1.5, y = y_position, label = simpson_label), size = 5)
 ```
 
-![](Octopus_files/figure-gfm/unnamed-chunk-42-1.png)<!-- -->
+![](Octopus_files/figure-gfm/unnamed-chunk-41-1.png)<!-- -->
 
 ``` r
-simpson_test <- wilcox.test(Simpson ~ Source, data = richness_div)
-
-# Déterminer si l'ajout de "NS" ou "*" est nécessaire pour Simpson
-simpson_label <- ifelse(simpson_test$p.value < 0.05, "*", "NS")
-
-# Calculer la position y pour le texte
-y_position <- max(richness_div$Simpson, na.rm = TRUE) + 0.1  # Ajuste la position y au-dessus des valeurs
-
-# Graphique en violon pour l'indice Simpson
-ggplot(richness_div, aes(x = Source, y = Simpson, fill = Source)) +
-  geom_violin(trim = FALSE) +  # Crée un graphique en violon
-  geom_boxplot(width = 0.1, outlier.shape = NA) +  # Ajoute une boîte à moustaches
-  labs(title = "Indice Simpson", 
-       x = "Groupe", 
-       y = "Indice Simpson") +
-  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotation des labels de l'axe x
-  scale_x_discrete(limits = c("Wild", "Aqua")) +  # Inverser l'ordre de l'axe x
-  # Ajouter "NS" ou "*" en fonction du résultat du test
-  geom_text(aes(x = 1.5, y = y_position, label = simpson_label), size = 5)
-```
-
-![](Octopus_files/figure-gfm/unnamed-chunk-43-1.png)<!-- -->
-
-``` r
-# Installer le package circlize
 install.packages("circlize")
 ```
 
@@ -1322,7 +1135,6 @@ install.packages("circlize")
     ## (as 'lib' is unspecified)
 
 ``` r
-# Charger le package circlize
 library(circlize)
 ```
 
@@ -1339,39 +1151,6 @@ library(circlize)
     ## This message can be suppressed by:
     ##   suppressPackageStartupMessages(library(circlize))
     ## ========================================
-
-``` r
-metabolic_pathways <- data.frame(
-  Pathway = c("Glycolysis", "TCA Cycle", "Fatty Acid Metabolism", "Amino Acid Metabolism"),
-  Aqua = c(5, 10, 3, 2),
-  Wild = c(8, 7, 4, 5)
-)
-
-# Transformation du data frame pour le ggplot
-library(tidyr)
-```
-
-    ## 
-    ## Attaching package: 'tidyr'
-
-    ## The following object is masked from 'package:S4Vectors':
-    ## 
-    ##     expand
-
-``` r
-metabolic_pathways_long <- gather(metabolic_pathways, key = "Group", value = "Abundance", -Pathway)
-
-# Visualisation des voies métaboliques avec ggplot2
-library(ggplot2)
-ggplot(metabolic_pathways_long, aes(x = Pathway, y = Abundance, fill = Group)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Abondance des Voies Métaboliques", x = "Voie Métabolique", y = "Abondance") +
-  scale_fill_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
-  theme_minimal() +  # Thème minimal
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotation des labels
-```
-
-![](Octopus_files/figure-gfm/unnamed-chunk-45-1.png)<!-- -->
 
 ``` r
 bray_curtis_dist <- phyloseq::distance(ps, method = "bray")
@@ -1392,22 +1171,55 @@ ggplot(pcoa_data, aes(x = MDS1, y = MDS2, color = Source)) +
     x = paste("PCoA1 (", pc1_variance, "%)", sep = ""),
     y = paste("PCoA2 (", pc2_variance, "%)", sep = "")
   ) + 
-  scale_color_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  # Couleurs personnalisées
-  theme_minimal()  # Thème minimal pour une meilleure lisibilité
+  scale_color_manual(values = c("Aqua" = "#9999FF", "Wild" = "#FF9999")) +  
+  theme_minimal()  
 ```
 
-![](Octopus_files/figure-gfm/unnamed-chunk-46-1.png)<!-- -->
+![](Octopus_files/figure-gfm/unnamed-chunk-43-1.png)<!-- -->
 
 ``` r
-plot_heatmap(ps, 
-             method = "PCoA",            # Méthode d'ordination si nécessaire
-             distance = "bray",          # Distance Bray-Curtis
-             taxa.label = "Genus",       # Étiquettes des taxons
-             sample.label = "Source",    # Étiquettes des échantillons
-             low = "white", high = "red" # Couleurs personnalisées
-)
+# Charger les bibliothèques nécessaires
+library(phyloseq)
+library(ggplot2)
+library(pheatmap)
+
+ps_normalized <- transform_sample_counts(ps, function(otu) otu / sum(otu))
+
+otu_matrix <- as.matrix(otu_table(ps_normalized))
+rownames(otu_matrix) <- paste0("ASV", seq_len(nrow(otu_matrix)))  
+
+
+top_OTUs <- names(sort(taxa_sums(ps), decreasing = TRUE))[1:20]
+otu_top_matrix <- otu_matrix[top_OTUs, ]
+
+pheatmap(otu_top_matrix,
+         cluster_rows = TRUE,
+         cluster_cols = TRUE,
+         scale = "row",
+         show_rownames = TRUE,
+         show_colnames = TRUE,
+         color = colorRampPalette(c("blue", "white", "red"))(50),
+         main = "Heatmap des 20 OTUs les plus abondants")
 ```
 
-    ## Warning: Transformation introduced infinite values in discrete y-axis
+![](Octopus_files/figure-gfm/unnamed-chunk-44-1.png)<!-- -->
 
-![](Octopus_files/figure-gfm/unnamed-chunk-47-1.png)<!-- -->
+``` r
+plot_heatmap(ps_normalized, method = "NMDS", distance = "bray")
+```
+
+    ## Warning in scale_fill_gradient(low = low, high = high, trans = trans, na.value
+    ## = na.value): log-4 transformation introduced infinite values.
+
+![](Octopus_files/figure-gfm/unnamed-chunk-45-1.png)<!-- -->
+
+``` r
+ plot_heatmap(ps_normalized, method = "NMDS", distance = "bray", 
+               taxa.label = "Genus", taxa.order = "Genus", 
+               low="beige", high="red", na.value="beige")
+```
+
+    ## Warning in scale_fill_gradient(low = low, high = high, trans = trans, na.value
+    ## = na.value): log-4 transformation introduced infinite values.
+
+![](Octopus_files/figure-gfm/unnamed-chunk-46-1.png)<!-- -->
